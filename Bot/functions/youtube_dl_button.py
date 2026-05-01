@@ -114,6 +114,7 @@ async def youtube_dl_call_back(bot: Client, update: CallbackQuery):
             "--extract-audio",
             "--audio-format", youtube_dl_ext,
             "--audio-quality", youtube_dl_format,
+            "--downloader", "aria2c",
             youtube_dl_url,
             "-o", download_directory
         ]
@@ -128,7 +129,9 @@ async def youtube_dl_call_back(bot: Client, update: CallbackQuery):
             "--max-filesize", str(client.config.TG_MAX_FILE_SIZE),
             "--embed-subs",
             "-f", minus_f_format,
-            "--hls-prefer-ffmpeg", youtube_dl_url,
+            "--hls-prefer-ffmpeg",
+            "--downloader", "aria2c",
+            youtube_dl_url,
             "-o", download_directory
         ]
     if client.config.HTTP_PROXY != "":

@@ -12,6 +12,8 @@ COPY requirements.txt .
 # Install dependencies
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN apt-get update
-RUN apt-get install -y ffmpeg
+RUN apt-get install -y ffmpeg aria2
+
+EXPOSE 7860
 
 CMD python3 -m Bot
