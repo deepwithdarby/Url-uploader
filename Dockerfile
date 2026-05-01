@@ -1,4 +1,11 @@
-FROM xgorn/python-phantomjs:3.9
+FROM python:3.10-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    aria2 \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy coding files to workdir
 COPY . /app/
@@ -6,14 +13,9 @@ WORKDIR /app/
 
 ENV PYTHONUNBUFFERED=1
 
-# Copy requirements.txt to root
-COPY requirements.txt .
-
-# Install dependencies
+# Install python dependencies
 RUN pip3 install --no-cache-dir -r requirements.txt
-RUN apt-get update
-RUN apt-get install -y ffmpeg aria2
 
 EXPOSE 7860
 
-CMD python3 -m Bot
+CMD ["python3", "-m", "Bot"]
